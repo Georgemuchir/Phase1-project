@@ -1,25 +1,173 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Rides Information</title>
-  <link rel="stylesheet" href="index.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trucking Company</title>
+    <link rel="stylesheet" href="index.css">
+    <script src="https://kit.fontawesome.com/d6259cd75c.js" crossorigin="anonymous"></script>
 </head>
 <body>
-  <div class="search-container">
-    <input type="text" id="locationInput" placeholder="Search location...">
-    <button id="searchButton">Search</button>
-    <label>
-      <input type="checkbox" id="includeRidesCheckbox"> Include rides with this location
-    </label>
-  </div>
+<div id="header">
+    <div class="container">
+        <nav>
+            <img src="Logo.jpeg" class="logo">
+            <ul id="sidemenu">
+                <li><a href="#header">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#services">Services</a></li>
+                <!-- <li><a href="#portfolio">Portfolio</a></li> -->
+                <li><a href="#contact">Contact</a></li>
+                <li><i class="fas fa-times" onclick="closemenu()"></i></li>
+            </ul>
+            <i class="fas fa-bars" onclick="openmenu()"></i>
+        </nav>
+        <div class="header-text">
+            <h2><b>WE KEEP YOUR <br>BUSINESS MOVING</b></h2>
+            <h6>Supply Chain, Transport & Logistic Management</h6>
+        </div>
+    </div>
+</div>
 
-  <div class="tab-contents">
-    <!-- Rides will be dynamically added here -->
-  </div>
+<!-- About Section -->
+<div id="about">
+    <div class="container">
+        <div class="row">
+            <div class="about-col-1">
+                <!-- < <!-- <a href="#"><i class="fab fa-linkedin"></i></a>img src="truck.jpeg"> -->
+            </div>
+            <div class="about-col-2">
+                <h1 class="sub-title">About Us</h1>
+                <h2>DEDICATED AND DRIVEN TO DELIVER</h2>
+                <p>Welcome to our transportation company, where we excel in transport logistics and supply chain services. Our dedicated team ensures timely and safe transportation of your goods, leveraging state-of-the-art technology and a reliable fleet. Your satisfaction is our priority, and we strive to exceed expectations with every shipment.</p>
+                <div class="tab-titles">
+                    <p class="tab-links active-link" onclick="opentab('skills')">Skills</p>
+                    <p class="tab-links" onclick="opentab('experience')">Experience</p>
+                </div>
+                <div class="tab-contents active-tab" id="skills">
+                    <ul>
+                        <li><span>Freight Transportation</span><br>Movement of goods using various truck types.</li>
+                        <li><span>Logistics Management</span><br>Efficient flow and storage of goods.</li>
+                        <li><span>Warehousing</span><br>Inventory management and order fulfillment.</li>
+                    </ul>
+                </div>
+                <div class="tab-contents" id="experience">
+                    <ul>
+                        <li><span>Years of Experience</span><br>Established in 2003, serving Pullman, WA.</li>
+                        <li><span>Customer Satisfaction</span><br>Prioritize client needs with every shipment.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="tab-content"></div>
 
-  <script src="inex.js"></script>
+<!-- Services Section -->
+<div id="services">
+    <div class="container">
+        <h1 class="sub-title">Our Services</h1>
+        <div class="services-list">
+            <div class="service">
+                <i class="fas fa-truck"></i>
+                <h2><b>Freight Transportation</b></h2>
+                <p>This involves the movement of goods from one location to another...</p>
+                <a href="#">Learn more</a>
+            </div>
+            <div class="service">
+                <i class="fas fa-clipboard-list"></i>
+                <h2><b>Logistics and Supply Chain Management</b></h2>
+                <p>This service includes planning, implementing, and controlling...</p>
+                <a href="#">Learn more</a>
+            </div>
+            <div class="service">
+                <i class="fas fa-warehouse"></i>
+                <h2><b>Warehousing and Storage Solutions</b></h2>
+                <p>Trucking companies often provide warehouse facilities...</p>
+                <a href="#">Learn more</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Contact Section -->
+<div id="contact">
+    <div class="container">
+        <div class="row">
+            <div class="contact-left">
+                <h1 class="sub-title">Contact Us</h1>
+                <p><i class="far fa-envelope"></i> truckingcom@gmail.com</p>
+                <p><i class="fas fa-phone"></i> +1 (501)001-002</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <!-- <a href="#"><i class="fab fa-linkedin"></i></a> -->
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+            <div class="contact-right">
+                <form id="submit-to-google-sheet">
+                    <input type="text" name="Name" placeholder="Your Name" required>
+                    <input type="email" name="Email" placeholder="Your Email" required>
+                    <textarea name="Message" rows="6" placeholder="Your Message" required></textarea>
+                    <button type="submit" class="btn btn2">Submit</button>
+                </form>
+                <p id="success-message" style="display: none; color: green;">Thank you!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbyeYWAyX4utx01NiP50CLxqxzEXcc6jx8p47lY1BTpZzSVaTmT7hBmdZFisTQ8TrZWoRw/exec';
+    const form = document.getElementById('submit-to-google-sheet');
+    const successMessage = document.getElementById('success-message');
+
+    form.addEventListener('submit', e => {
+        e.preventDefault();
+        fetch(scriptURL, { method: 'POST', body: new FormData(form) })
+            .then(response => {
+                if (response.ok) {
+                    successMessage.style.display = 'block';
+                    form.reset();
+                    setTimeout(() => {
+                        successMessage.style.display = 'none';
+                    }, 5000);
+                } else {
+                    console.error('Form submission failed:', response.statusText);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    });
+
+    var tablinks = document.getElementsByClassName("tab-links");
+    var tabcontents = document.getElementsByClassName("tab-contents");
+
+    function opentab(tabname) {
+        for (var i = 0; i < tablinks.length; i++) {
+            tablinks[i].classList.remove("active-link");
+        }
+        for (var i = 0; i < tabcontents.length; i++) {
+            tabcontents[i].classList.remove("active-tab");
+        }
+        document.getElementById(tabname).classList.add("active-tab");
+        event.currentTarget.classList.add("active-link");
+    }
+
+    var sidemenu = document.getElementById("sidemenu");
+
+    function openmenu() {
+        sidemenu.style.right = "0";
+    }
+
+    function closemenu() {
+        sidemenu.style.right = "-200px";
+    }
+</script>
+<div class="copyright">
+    <p>&copy; 2024 Trucking Company. All rights reserved. Made with ❤️</p>
+</div>
+<script src="inex.js"></script>
 </body>
 </html>
-
